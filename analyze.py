@@ -1,5 +1,5 @@
-import numpy as np
 import pandas as pd
+from geopy.geocoders import Nominatim
 
 
 def load_data():
@@ -15,7 +15,18 @@ def load_data():
     facility_infractions = pd.merge(facility_inspections, infractions, on=['INSPECTION_ID'])
 
     facility_infractions.groupby(['FACILITYID', 'BUSINESS_NAME', 'TELEPHONE', 'ADDR', 'CITY',
-       'OPEN_DATE', 'DESCRIPTION']).agg({'count': [np.size]})
+       'OPEN_DATE', 'DESCRIPTION']).size()
+
+    output = {}
+    geolocator = Nominatim()
+    for i, j in facility_infractions.iteritems():
+        id = i[0]
+        output[id] = list(i)[1:]
+        location = geolocator.geocode(i[3] + " " + i[4])
+        output[id].append(location.latitude)
+        output[id].append(lcation.longitude)
+
+    print output
 
 
 if __name__ == '__main__':
