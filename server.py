@@ -5,9 +5,9 @@ from flask import Flask, Response, make_response, jsonify, send_from_directory
 from analyze import load_data
 from flask import render_template
 
+all_data = []
 # set the project root directory as the static folder, you can set others.
 app = Flask(__name__, static_url_path='/static')
-
 
 @app.route('/js/<path:path>')
 def send_js(path):
@@ -40,6 +40,6 @@ def all_restaurants():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
-    global all_data
     all_data = load_data()
+    print "Load data done!"
+    app.run(debug=True)

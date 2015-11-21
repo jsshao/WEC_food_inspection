@@ -62,9 +62,11 @@ def group_by_restaurants(df):
 
 def load_data():
     global cache
+    print "begin loading data!"
     if os.path.isfile('cache.txt'):
         with open ('cache.txt', 'rb') as f:
             cache = pickle.load(f)
+        print "loaded cache, size %d" % len(cache)
 
     facility_infractions = load_data_as_df()
     facility_infractions = facility_infractions.groupby(['FACILITYID', 'BUSINESS_NAME', 'TELEPHONE', 'ADDR', 'CITY',
@@ -76,7 +78,7 @@ def load_data():
         l.append((i, j))
 
 
-    p = Pool(1)
+    p = Pool(2)
     data = p.map(process, l)
 
     with open ('cache.txt', 'wb') as f:
