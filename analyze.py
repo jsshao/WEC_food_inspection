@@ -1,3 +1,5 @@
+import copy
+
 import pandas as pd
 from geopy.geocoders import GoogleV3
 from multiprocessing.pool import ThreadPool as Pool
@@ -14,7 +16,7 @@ def process(inp):
     output = {}
     global cache
 
-    try :
+    try:
         output["id"] = i[0]
         output["name"] = i[1]
         output["phone"] = i[2]
@@ -39,6 +41,7 @@ def process(inp):
     output["infractions"] = j
     return output
 
+
 def load_data_as_df():
     inspections = pd.read_csv('assets/Inspections_OpenData.csv')
     infractions = pd.read_csv('assets/Infractions_OpenData.csv')
@@ -53,11 +56,29 @@ def load_data_as_df():
     return facility_infractions
 
 
-def group_by_restaurants(df):
+def filter_by_year(df, start=None, end=None):
+    new_df = copy.deepcopy(df)
+    if start:
+        new_df = df[df['InspectionDate' >= str(start)]]
+
+    if end:
+        new_df = df[df['InspectionDate' >= str(end)]]
+
+    return new_df
+
+
+def group_by_restaurants(df, top=None):
     groups = df.groupby("FACILITYID")
     restaurants = [g for g in groups]
     restaurants = sorted(restaurants, key=lambda g: len(g[1]), reverse=True)
+
     return restaurants
+
+
+def get_infractions_for_restaurant(df, rid):
+    restaurant = df[df['FACILITYID'] == rid]
+    infractions = restaurant.T.to_dict().values()
+    return infractions
 
 
 def load_data():
@@ -88,4 +109,3 @@ def load_data():
 
 if __name__ == '__main__':
     load_data()
-
