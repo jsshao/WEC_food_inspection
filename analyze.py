@@ -12,9 +12,9 @@ def process(inp):
         try :
             geolocator = Nominatim()
             location = geolocator.geocode(i[3] + " " + i[4] + " Canada")
-            output[id].append(location.latitude)
-            output[id].append(location.longitude)
-            print location.address
+            output.append(location.latitude)
+            output.append(location.longitude)
+            output.append(j)
         except:
             pass
     return output
