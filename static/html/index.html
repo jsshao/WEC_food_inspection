@@ -17,9 +17,11 @@
     <script src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js" charset="utf-8"></script>
     <script>
         $(document).ready(function(){
-                $('#example').DataTable({
-                                });
-            });
+            $('#example').DataTable({
+                            });
+
+            $.get('/top_k')
+        });
     </script>
 
     <title>Food Safety</title>
