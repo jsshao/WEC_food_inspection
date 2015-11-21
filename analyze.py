@@ -1,6 +1,6 @@
 import pandas as pd
 from geopy.geocoders import Nominatim
-from multiprocessing import Pool
+from multiprocessing.pool import ThreadPool as Pool
 
 
 def process(inp):
