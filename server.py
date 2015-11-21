@@ -16,7 +16,7 @@ def send_js(path):
 
 @app.route('/restaurant/<rid>')
 def stores(rid):
-    return render_template('restaurant.html', name='ABCD')
+    return render_template('restaurant.html', name='ABCD', entries=[])
 
 
 @app.route('/violation.html')

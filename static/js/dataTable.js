@@ -1,5 +1,7 @@
 $(document).ready(function(){
-    $('#example').DataTable();
+    $('#example').DataTable({
+        'searching': false
+    });
 });
 
 function initialize() {

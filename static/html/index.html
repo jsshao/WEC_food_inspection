@@ -10,11 +10,34 @@
     <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css">
     <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"> </script>
     <script src="http://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js"> </script>
+    <link rel='stylesheet' type='test/css' href='https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js" charset="utf-8"></script>
+    <script>
+        $(document).ready(function(){
+                $('#example').DataTable({
+                                });
+            });
+    </script>
 
     <title>Food Safety</title>
 </head>
 <body>
+    <div class='container'>
     <h1>Hello World!</h1>
     <div id="map"></div>
+
+     <table id="restarunts" class="table display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Restarunt Name</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+  </div>
 </body>
 </html>
