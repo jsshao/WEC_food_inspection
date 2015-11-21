@@ -52,20 +52,15 @@
                 <th>Inspection Date</th>
                 <th>Infraction Type</th>
                 <th>Description</th>
-                <th>Charge Detail</th>
-                <th>Inspector</th>
+                <th>Eat Smart </th>
             </tr>
         </thead>
         <tbody>
-            <!--{% for entry in res %}-->
-            <!--<tr>-->
-                <!--<td>{{ entry.date }}</td>-->
-                <!--<td>{{ entry.type }}</td>-->
-                <!--<td>{{ entry.desc }}</td>-->
-                <!--<td>{{ entry.charge }}</td>-->
-                <!--<td>{{ entry.inspector }}</td>-->
-            <!--</tr>-->
-            <!--{% endfor %}-->
+            {% for entry in inf %}
+            <tr>
+                <td>{{ entry['category_code'] }}</td>
+            </tr>
+            {% endfor %}
         </tbody>
       </table>
     </div>
