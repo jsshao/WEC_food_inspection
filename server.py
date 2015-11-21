@@ -2,10 +2,11 @@
 import json
 
 from flask import Flask, Response, make_response, jsonify, send_from_directory
-from analyze import load_data, load_data_as_df, group_by_restaurants
+from analyze import load_data, load_data_as_df, group_by_restaurants, get_infractions_for_restaurant
 from flask import render_template
 
 all_data = []
+df_data = []
 # set the project root directory as the static folder, you can set others.
 app = Flask(__name__, static_url_path='/static')
 
@@ -16,7 +17,17 @@ def send_js(path):
 
 @app.route('/restaurant/<rid>')
 def stores(rid):
-    return render_template('restaurant.html', name='ABCD', entries=[])
+    rid = '00213C39-2B44-4CEF-AF1D-627B7A4E7ADC'
+    res = None
+    for entry in all_data:
+        if entry['id'] == rid:
+            res = entry
+            break
+    print res
+    inf = get_infractions_for_restaurant(df_data, rid)
+    print 'jason cancer', inf[0]['category_code']
+    print inf
+    return render_template('restaurant.html', res=res, inf=inf)
 
 
 @app.route('/violation.html')
@@ -51,5 +62,6 @@ def top_k():
 
 if __name__ == "__main__":
     all_data = load_data()
+    df_data = load_data_as_df()
     print "Load data done!"
     app.run(debug=True)
