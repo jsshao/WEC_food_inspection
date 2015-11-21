@@ -16,7 +16,12 @@ def send_js(path):
 
 @app.route('/restaurant/<rid>')
 def stores(rid):
-    return render_template('restaurant.html', name='ABCD', entries=[])
+    res = []
+    for entry in all_data:
+        if entry['id'] == rid:
+            res = entry
+            break
+    return render_template('restaurant.html', res=[])
 
 
 @app.route('/violation.html')

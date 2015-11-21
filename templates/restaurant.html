@@ -34,11 +34,11 @@
         </div>
     </div>
     <div class="col-md-3">
-        <div> {{ name }}
+        <div> {{ res['name'] }}
         </div>
-        <div> {{ addr }}
+        <div> {{ res['addr'] }}
         </div>
-        <div> {{ count }}
+        <div> {{ res['infractions'] }}
         </div>
     </div>
     <div class="col-md-5">
@@ -57,15 +57,15 @@
             </tr>
         </thead>
         <tbody>
-            {% for entry in entries %}
-            <tr>
-                <td>{{ entry.date }}</td>
-                <td>{{ entry.type }}</td>
-                <td>{{ entry.desc }}</td>
-                <td>{{ entry.charge }}</td>
-                <td>{{ entry.inspector }}</td>
-            </tr>
-            {% endfor %}
+            <!--{% for entry in res %}-->
+            <!--<tr>-->
+                <!--<td>{{ entry.date }}</td>-->
+                <!--<td>{{ entry.type }}</td>-->
+                <!--<td>{{ entry.desc }}</td>-->
+                <!--<td>{{ entry.charge }}</td>-->
+                <!--<td>{{ entry.inspector }}</td>-->
+            <!--</tr>-->
+            <!--{% endfor %}-->
         </tbody>
       </table>
     </div>
