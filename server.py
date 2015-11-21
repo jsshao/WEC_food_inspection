@@ -2,7 +2,7 @@
 import json
 
 from flask import Flask, Response, make_response, jsonify, send_from_directory
-from analyze import load_data, load_data_as_df, get_infractions_for_restaurant
+from analyze import load_data, load_data_as_df, group_by_restaurants, get_infractions_for_restaurant
 from flask import render_template
 # import sys  
 # reload(sys)  
@@ -29,7 +29,6 @@ def stores(rid):
     for i in range(len(inf)):
         if isinstance(inf[i]['category_code'], basestring):
             inf[i]['category_code'] = inf[i]['category_code'].decode('utf-8','ignore').encode("utf-8")
-            print inf[i]['category_code']
     return render_template('restaurant.html', res=res, inf=inf)
 
 
@@ -46,6 +45,21 @@ def root():
 @app.route('/data')
 def all_restaurants():
     return Response(json.dumps(all_data),  mimetype='application/json')
+
+
+@app.route('/top_k')
+def top_k():
+    all_data = load_data_as_df()
+    top = group_by_restaurants(all_data, 10)
+    results = []
+    for g in top:
+        infractions = g[1].T.to_dict().values()
+        count = len(infractions)
+        results.append({
+            'infraction': infractions[0],
+            'count': count
+        })
+    return Response(json.dumps(results),  mimetype='application/json')
 
 
 if __name__ == "__main__":
