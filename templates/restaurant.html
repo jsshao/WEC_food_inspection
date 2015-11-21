@@ -2,13 +2,23 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <link rel='stylesheet' type='test/css' href='https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+          integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"
+          integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+            integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
+            crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js" charset="utf-8"></script>
     <script src='/static/js/dataTable.js'></script>
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <style>
+        body {
+            margin-top: 50px;
+            font-size: 16px;
+        }
+
         #map {
             margin-left: auto;
             margin-right: 0;
@@ -16,55 +26,72 @@
             height: 400px;
             background-color: #CCC;
         }
+
         #label {
             text-align: right;
+        }
+
+        .row-padding {
+            padding-top: 25px;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
+<div class="container">
 
-    <div class="col-md-2" id='label'>
-        <div> Restaurant Name:
-        </div>
-        <div> Address:
-        </div>
-        <div> Infraction Count:
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div> {{ res['name'] }}
-        </div>
-        <div> {{ res['addr'] }}
-        </div>
-        <div> {{ res['infractions'] }}
-        </div>
-    </div>
-    <div class="col-md-5">
-        <div id="map"></div>
-    </div>
 
     <div class="row">
-     <table id="violations" class="table display" cellspacing="0" width="100%">
-        <thead>
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">Hi</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-2" id='label'>
+                            <div> Restaurant Name:
+                            </div>
+                            <div> Address:
+                            </div>
+                            <div> Infraction Count:
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div> {{ res['name'] }}
+                            </div>
+                            <div> {{ res['addr'] }}
+                            </div>
+                            <div> {{ res['infractions'] }}
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div id="map"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-padding">
+        <table id="violations" class="table display" cellspacing="0" width="100%">
+            <thead>
             <tr>
                 <th>Inspection Date</th>
                 <th>Infraction Type</th>
                 <th>Description</th>
-                <th>Eat Smart </th>
+                <th>Eat Smart</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             {% for entry in inf %}
-            <tr>
-                <td>{{ entry['category_code'] }}</td>
-            </tr>
+                <tr>
+                    <td>{{ entry['category_code'] }}</td>
+                </tr>
             {% endfor %}
-        </tbody>
-      </table>
+            </tbody>
+        </table>
     </div>
 
-   </div>
+</div>
 </body>
 </html>
