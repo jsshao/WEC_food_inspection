@@ -12,9 +12,12 @@
         #map {
             margin-left: auto;
             margin-right: 0;
-            width: 500px;
+            width: 600px;
             height: 400px;
             background-color: #CCC;
+        }
+        #label {
+            text-align: right;
         }
     </style>
 </head>
@@ -22,15 +25,23 @@
 <body>
     <div class="container">
 
-    <div class="col-md-3">
-        <div> Restaurant Name: {{ name }}
+    <div class="col-md-2" id='label'>
+        <div> Restaurant Name:
         </div>
-        <div> Address: <span></span>
+        <div> Address:
         </div>
-        <div> Rotten Score: <span></span>
+        <div> Infraction Count:
         </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-3">
+        <div> {{ name }}
+        </div>
+        <div> {{ addr }}
+        </div>
+        <div> {{ count }}
+        </div>
+    </div>
+    <div class="col-md-5">
         <div id="map"></div>
     </div>
 

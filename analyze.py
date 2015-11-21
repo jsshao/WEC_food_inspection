@@ -11,6 +11,7 @@ def process(inp):
     id = i[0]
 
     output = {}
+    global cache
 
     try :
         output["id"] = i[0]
@@ -39,6 +40,7 @@ def process(inp):
 
 
 def load_data():
+    global cache
     if os.path.isfile('cache.txt'):
         with open ('cache.txt', 'rb') as f:
             cache = pickle.load(f)
