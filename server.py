@@ -2,7 +2,7 @@
 import json
 
 from flask import Flask, Response, make_response, jsonify, send_from_directory
-from analyze import load_data
+from analyze import load_data, load_data_as_df, group_by_restaurants
 from flask import render_template
 
 all_data = []
@@ -32,6 +32,21 @@ def root():
 @app.route('/data')
 def all_restaurants():
     return Response(json.dumps(all_data),  mimetype='application/json')
+
+
+@app.route('/top_k')
+def top_k():
+    all_data = load_data_as_df()
+    top = group_by_restaurants(all_data, 10)
+    results = []
+    for g in top:
+        infractions = g[1].T.to_dict().values()
+        count = len(infractions)
+        results.append({
+            'infraction': infractions[0],
+            'count': count
+        })
+    return Response(json.dumps(results),  mimetype='application/json')
 
 
 if __name__ == "__main__":

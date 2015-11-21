@@ -72,6 +72,9 @@ def group_by_restaurants(df, top=None):
     restaurants = [g for g in groups]
     restaurants = sorted(restaurants, key=lambda g: len(g[1]), reverse=True)
 
+    if top:
+        restaurants = restaurants[:top]
+
     return restaurants
 
 
