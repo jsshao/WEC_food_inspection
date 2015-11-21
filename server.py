@@ -52,6 +52,8 @@ def top_k():
     results = []
     for g in top:
         infractions = g[1].T.to_dict().values()
+        for infraction in infractions:
+            infraction.pop('category_code', None)
         count = len(infractions)
         results.append({
             'infraction': infractions[0],
