@@ -1,5 +1,23 @@
 import pandas as pd
 from geopy.geocoders import Nominatim
+from multiprocessing import Pool
+
+
+def process(inp):
+    i, j = inp
+    id = i[0]
+
+    output = list(i)[1:]
+    if len(i) > 4:
+        try :
+            geolocator = Nominatim()
+            location = geolocator.geocode(i[3] + " " + i[4] + " Canada")
+            output[id].append(location.latitude)
+            output[id].append(location.longitude)
+            print location.address
+        except:
+            pass
+    return output
 
 
 def load_data():
@@ -14,20 +32,17 @@ def load_data():
     facility_inspections = pd.merge(facilities, inspections, on=['FACILITYID'])
     facility_infractions = pd.merge(facility_inspections, infractions, on=['INSPECTION_ID'])
 
-    facility_infractions.groupby(['FACILITYID', 'BUSINESS_NAME', 'TELEPHONE', 'ADDR', 'CITY',
+    facility_infractions = facility_infractions.groupby(['FACILITYID', 'BUSINESS_NAME', 'TELEPHONE', 'ADDR', 'CITY',
        'OPEN_DATE', 'DESCRIPTION']).size()
 
-    output = {}
-    geolocator = Nominatim()
+    output = []
+    l = []
     for i, j in facility_infractions.iteritems():
-        id = i[0]
-        output[id] = list(i)[1:]
-        location = geolocator.geocode(i[3] + " " + i[4])
-        output[id].append(location.latitude)
-        output[id].append(lcation.longitude)
+        l.append((i, j))
 
-    print output
-
+    p = Pool(100)
+    data = p.map(process, l)
+    return data
 
 if __name__ == '__main__':
     load_data()

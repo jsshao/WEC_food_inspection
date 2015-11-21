@@ -1,9 +1,11 @@
 #!/usr/bin/env python
-from flask import Flask, make_response, request, send_from_directory
+import json
+
+from flask import Flask, Response, make_response, jsonify, send_from_directory
+from analyze import load_data
 
 # set the project root directory as the static folder, you can set others.
 app = Flask(__name__, static_url_path='/static')
-
 
 @app.route('/js/<path:path>')
 def send_js(path):
@@ -18,5 +20,12 @@ def root():
     return make_response(open('static/html/index.html').read())
 
 
+@app.route('/data')
+def all_restaurants():
+    return Response(json.dumps(all_data),  mimetype='application/json')
+
+
 if __name__ == "__main__":
+    global all_data
+    all_data = load_data()
     app.run(debug=True)
