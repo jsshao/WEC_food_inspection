@@ -26,7 +26,7 @@ L.tileLayer(
     //
     data = data.map(function(d) {
         if (d.name.indexOf("SOGO") != -1) console.log(d);
-        return {latlng: [d.latitude, d.longitude], name: d.name, freq: d.infractions};
+        return {latlng: [d.latitude, d.longitude], name: d.name, freq: d.infractions, id: d.id};
     });
 
     map._initPathRoot();
@@ -69,8 +69,8 @@ L.tileLayer(
         d3.select(this).attr('r', small);
         infobox.style('display', 'none');
     });
-    dots.on('mouseclick', function(d) {
-        alert('hi');
+    dots.on('click', function(d) {
+        window.location.href = '/restaurant/'+d.id;
     });
     dots.on('mousemove', function(d) {
         infobox.style('top', (d3.event.pageY - $("#map")[0].getBoundingClientRect().top + 2) + 'px')
