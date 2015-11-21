@@ -58,7 +58,10 @@
         <tbody>
             {% for entry in inf %}
             <tr>
+                <td>{{ entry['InspectionDate'] }}</td>
+                <td>{{ entry['INFRACTION_TYPE'] }}</td>
                 <td>{{ entry['category_code'] }}</td>
+                <td>{{ entry['EATSMART'] }}</td>
             </tr>
             {% endfor %}
         </tbody>
