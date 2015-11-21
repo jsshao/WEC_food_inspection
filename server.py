@@ -3,17 +3,26 @@ import json
 
 from flask import Flask, Response, make_response, jsonify, send_from_directory
 from analyze import load_data
+from flask import render_template
 
 # set the project root directory as the static folder, you can set others.
 app = Flask(__name__, static_url_path='/static')
+
 
 @app.route('/js/<path:path>')
 def send_js(path):
     return send_from_directory('js', path)
 
+
+@app.route('/restaurant/<rid>')
+def stores(rid):
+    return render_template('restaurant.html', name='ABCD')
+
+
 @app.route('/violation.html')
 def send_violations():
     return make_response(open('static/html/violation.html').read())
+
 
 @app.route('/')
 def root():
