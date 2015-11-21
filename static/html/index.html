@@ -29,7 +29,7 @@
                 console.log('top', data);
                 _.each(data, function(r) {
                     var element = document.createElement('tr');
-                    element.innerHTML = '<td>' + r.infraction.BUSINESS_NAME + '</td><td>' + r.count + '</td>';
+                    element.innerHTML = '<td><a href=\"'+ '/restaurant/' + r.infraction.FACILITYID + '\">' + r.infraction.BUSINESS_NAME + '</a></td><td>' + r.count + '</td>';
                     document.getElementById('xxx').appendChild(element);
                 })
             }).done(function () {
