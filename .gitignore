@@ -3,3 +3,4 @@ venv/
 *.swp
 analyze.pyc
 *.pyc
+cache.txt

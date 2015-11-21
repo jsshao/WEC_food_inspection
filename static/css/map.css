@@ -1,25 +1,18 @@
-body {
-    margin: 0;
-}
-.map {
-    position: relative;
-    overflow: hidden;
-}
-.layer {
-    position: absolute;
-}
-.tile {
-    pointer-events: none;
-    position: absolute;
-    width: 256px;
-    height: 256px;
-}
-.info {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-}
 #map {
     width:640px;
     height:480px;
+}
+.infobox {
+    background: #eee;
+    box-shadow: 0 0 5px #999999;
+    color: #333;
+    display: none;
+    font-size: 12px;
+    left: 130px;
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    top: 95px;
+    width: 130px;
+    z-index: 10;
 }
