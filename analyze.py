@@ -20,7 +20,7 @@ def process(inp):
     return output
 
 
-def load_data():
+def load_data_as_df():
     inspections = pd.read_csv('assets/Inspections_OpenData.csv')
     infractions = pd.read_csv('assets/Infractions_OpenData.csv')
     facilities = pd.read_csv('assets/Facilities_OpenData.csv')
@@ -31,8 +31,19 @@ def load_data():
 
     facility_inspections = pd.merge(facilities, inspections, on=['FACILITYID'])
     facility_infractions = pd.merge(facility_inspections, infractions, on=['INSPECTION_ID'])
+    return facility_interactions
 
-    facility_infractions = facility_infractions.groupby(['FACILITYID', 'BUSINESS_NAME', 'TELEPHONE', 'ADDR', 'CITY',
+
+def group_by_restaurants(df):
+    groups = df.groupby("FACILITYID")
+    restaurants = [g for g in groups]
+    restaurants = sorted(restaurants, key=lambda g: len(g[1]), reverse=True)
+    return restaurants
+
+
+def load_data():
+   facility_infractions = load_data_as_df()
+   facility_infractions = facility_infractions.groupby(['FACILITYID', 'BUSINESS_NAME', 'TELEPHONE', 'ADDR', 'CITY',
        'OPEN_DATE', 'DESCRIPTION']).size()
 
     output = []
