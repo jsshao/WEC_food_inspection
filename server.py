@@ -11,7 +11,7 @@ def send_js(path):
 
 @app.route('/')
 def root():
-    return make_response(open('static/index.html').read())
+    return make_response(open('static/html/index.html').read())
 
 
 if __name__ == "__main__":
