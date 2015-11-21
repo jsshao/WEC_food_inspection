@@ -35,11 +35,14 @@ def process(inp):
         print e
 
     output["infractions"] = j
-    print output
     return output
 
 
 def load_data():
+    if os.path.isfile('cache.txt'):
+        with open ('cache.txt', 'rb') as f:
+            cache = pickle.load(f)
+
     inspections = pd.read_csv('assets/Inspections_OpenData.csv')
     infractions = pd.read_csv('assets/Infractions_OpenData.csv')
     facilities = pd.read_csv('assets/Facilities_OpenData.csv')
@@ -62,15 +65,12 @@ def load_data():
 
     p = Pool(1)
     data = p.map(process, l)
-    return data
-
-if __name__ == '__main__':
-    if os.path.isfile('cache.txt'):
-        with open ('cache.txt', 'rb') as f:
-            cache = pickle.load(f)
-
-    load_data()
 
     with open ('cache.txt', 'wb') as f:
         pickle.dump(cache, f)
+
+    return data
+
+if __name__ == '__main__':
+    load_data()
 
