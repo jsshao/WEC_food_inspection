@@ -10,6 +10,8 @@
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <style>
         #map {
+            margin-left: auto;
+            margin-right: 0;
             width: 500px;
             height: 400px;
             background-color: #CCC;
@@ -20,7 +22,7 @@
 <body>
     <div class="container">
 
-    <div style='display: inline-block'>
+    <div class="col-md-3">
         <div> Restraunt Name: <span></span>
         </div>
         <div> Address: <span></span>
@@ -28,11 +30,12 @@
         <div> Rotten Score: <span></span>
         </div>
     </div>
-    <div style='display: inline-block'>
+    <div class="col-md-9">
         <div id="map"></div>
     </div>
 
-    <table id="example" class="table display" cellspacing="0" width="100%">
+    <div class="row">
+     <table id="example" class="table display" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>Inspection Date</th>
@@ -51,7 +54,10 @@
                 <td>Jason</td>
             </tr>
         </tbody>
-    </table>
+      </table>
+    
     </div>
+
+   </div>
 </body>
 </html>
