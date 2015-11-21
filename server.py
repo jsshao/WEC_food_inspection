@@ -4,6 +4,9 @@ import json
 from flask import Flask, Response, make_response, jsonify, send_from_directory
 from analyze import load_data, load_data_as_df, group_by_restaurants, get_infractions_for_restaurant
 from flask import render_template
+# import sys  
+# reload(sys)  
+# sys.setdefaultencoding('utf8')
 
 all_data = []
 df_data = []
@@ -17,16 +20,15 @@ def send_js(path):
 
 @app.route('/restaurant/<rid>')
 def stores(rid):
-    rid = '00213C39-2B44-4CEF-AF1D-627B7A4E7ADC'
     res = None
     for entry in all_data:
         if entry['id'] == rid:
             res = entry
             break
-    print res
     inf = get_infractions_for_restaurant(df_data, rid)
-    print 'jason cancer', inf[0]['category_code']
-    print inf
+    for i in range(len(inf)):
+        if isinstance(inf[i]['category_code'], basestring):
+            inf[i]['category_code'] = inf[i]['category_code'].decode('utf-8','ignore').encode("utf-8")
     return render_template('restaurant.html', res=res, inf=inf)
 
 
