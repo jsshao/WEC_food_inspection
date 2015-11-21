@@ -1,22 +1,41 @@
 import pandas as pd
-from geopy.geocoders import Nominatim
+from geopy.geocoders import GoogleV3
 from multiprocessing.pool import ThreadPool as Pool
+import pickle
+import os.path
 
+cache = {}
 
 def process(inp):
     i, j = inp
     id = i[0]
 
-    output = list(i)[1:]
-    if len(i) > 4:
-        try :
-            geolocator = Nominatim()
-            location = geolocator.geocode(i[3] + " " + i[4] + " Canada")
-            output.append(location.latitude)
-            output.append(location.longitude)
-            output.append(j)
-        except:
-            pass
+    output = {}
+
+    try :
+        output["id"] = i[0]
+        output["name"] = i[1]
+        output["phone"] = i[2]
+        output["addr"] = i[3]
+        output["city"] = i[4]
+        output["open_date"] = i[5]
+        output["type"] = i[6]
+
+        address = i[3] + " " + i[4] + " Canada"
+        if address in cache:
+            output["latitude"] = cache[address][0]
+            output["longitude"] = cache[address][1]
+        else:
+            geolocator = GoogleV3()
+            location = geolocator.geocode(address)
+            output["latitude"] = (location.latitude)
+            output["longitude"] = (location.longitude)
+            cache[address] = (location.latitude, location.longitude)
+    except Exception as e:
+        print e
+
+    output["infractions"] = j
+    print output
     return output
 
 
@@ -40,9 +59,18 @@ def load_data():
     for i, j in facility_infractions.iteritems():
         l.append((i, j))
 
-    p = Pool(100)
+
+    p = Pool(1)
     data = p.map(process, l)
     return data
 
 if __name__ == '__main__':
+    if os.path.isfile('cache.txt'):
+        with open ('cache.txt', 'rb') as f:
+            cache = pickle.load(f)
+
     load_data()
+
+    with open ('cache.txt', 'wb') as f:
+        pickle.dump(cache, f)
+

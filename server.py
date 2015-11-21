@@ -35,6 +35,6 @@ def all_restaurants():
 
 
 if __name__ == "__main__":
+    app.run(debug=True)
     global all_data
     all_data = load_data()
-    app.run(debug=True)
